@@ -23,9 +23,9 @@ int SocketUDP::send(void *data, size_t size, int flag)
 {
 	int writed;
 
-	socklen_t fromsize = sizeof(this->address);
+	socklen_t fromsize = sizeof(this->from);
 
-	if ((writed = sendto(this->hSocket, data, size, flag, (struct sockaddr*)&this->address, fromsize)) == -1)
+	if ((writed = sendto(this->hSocket, data, size, flag, (struct sockaddr*)&this->from, fromsize)) == -1)
 	{
 		this->stop("Erreur sur le send de la socket: " + std::string(strerror(errno)));
 		return false;
@@ -51,12 +51,14 @@ int SocketUDP::recv(void *data, size_t size)
 
 	((char*)data)[byteRead] = 0;
 
+	from = s_addr;
+
 	return byteRead;
 }
 
 void SocketUDP::init(std::string d, int p, IPType t)
 {
-	this->hSocket = socket(AF_INET, t == IPType::MULTICAST ? SOCK_DGRAM : SOCK_STREAM, 0);
+	this->hSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
 	if (hSocket == -1)
 	{

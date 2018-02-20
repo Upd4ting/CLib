@@ -26,6 +26,7 @@ Socket* ServerUDP::buildSocket()
 
 void ServerUDP::onStart()
 {
+	this->socket->start();
 }
 
 void ServerUDP::onStop(bool eoc)
