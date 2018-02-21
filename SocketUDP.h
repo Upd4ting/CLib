@@ -31,4 +31,6 @@ public:
 
 	struct sockaddr_in getFrom() const;
 	char* getPacket() const;
+
+	void setBufsize(int size);
 };

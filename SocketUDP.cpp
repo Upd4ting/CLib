@@ -158,6 +158,11 @@ char* SocketUDP::getPacket() const
 	return packet;
 }
 
+void SocketUDP::setBufsize(int size)
+{
+	this->bufsize = size;
+}
+
 SocketUDP::SocketUDP(Logger *l) : Socket(l), bufsize(4096)
 {
 }
